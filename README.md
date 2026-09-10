@@ -1,41 +1,33 @@
-# cafe-delvann-botimport os
+import os
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
 
-TOKEN = os.getenv("BOT_TOKEN")
+TOKEN = os.environ["BOT_TOKEN"]
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "🎉 به ربات Cafe Delvann خوش آمدید!\n\n"
-        "برای دریافت لینک دعوت اختصاصی خودتان، دستور زیر را بزنید:\n"
-        "/invite\n\n"
-        "برای مشاهده رتبه دعوت‌ها:\n"
-        "/rank"
+        "🎉 به Cafe Delvann خوش آمدید!\n\n"
+        "برای دریافت لینک دعوت خود، /invite را بزنید.\n"
+        "برای مشاهده رتبه دعوت‌ها، /rank را بزنید."
     )
 
 
 async def invite(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    user = update.effective_user
-
     await update.message.reply_text(
-        f"سلام {user.first_name} 🌹\n\n"
         "🔗 لینک دعوت اختصاصی شما به‌زودی فعال می‌شود.\n\n"
-        "با دعوت دوستانتان به جمع Cafe Delvann کمک کنید بزرگ‌تر و شادتر بشیم 🎉"
+        "دوستانتان را به Cafe Delvann دعوت کنید 🎉"
     )
 
 
 async def rank(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "🏆 رتبه‌بندی دعوت‌کنندگان\n\n"
-        "این بخش پس از اتصال سیستم شمارش دعوت‌ها فعال می‌شود."
+        "سیستم شمارش دعوت‌ها در مرحله بعد فعال می‌شود."
     )
 
 
 def main():
-    if not TOKEN:
-        raise ValueError("BOT_TOKEN is not set")
-
     app = Application.builder().token(TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
